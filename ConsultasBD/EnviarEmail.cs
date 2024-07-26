@@ -14,18 +14,15 @@ namespace ConsultasBD
                 Console.WriteLine("O arquivo de relatório não foi encontrado.");
                 return;
             }
-
-            // Lendo o conteúdo do arquivo CSV
+            // Lendo o arquivo CSV
             string[] linhas = File.ReadAllLines(caminhoArquivo);
-
-            // Garantir que há pelo menos uma linha no arquivo
             if (linhas.Length < 2)
             {
                 Console.WriteLine("O arquivo CSV está vazio ou não contém dados suficientes.");
                 return;
             }
 
-            // Criando o corpo do e-mail em HTML com novo estilo
+            // Criando o corpo do e-mail em HTML 
             string emailBody = @"
             <html>
             <head>
@@ -63,12 +60,13 @@ namespace ConsultasBD
                 if (isFirstLine)
                 {
                     isFirstLine = false;
-                    continue; // Ignora a primeira linha que é o cabeçalho
+                    continue; 
                 }
-
+                
                 emailBody += "<tr>";
+                
                 string[] colunas = linha.Split(',');
-
+                
                 foreach (string coluna in colunas)
                 {
                     emailBody += $"<td>{coluna}</td>";
@@ -94,7 +92,7 @@ namespace ConsultasBD
             string smtpPassword = "sua senha smtp";
             string fixedRecipient = "destinatario";
 
-            // Enviar o e-mail
+            // Enviando email
             try
             {
                 var smtpClient = new SmtpClient(smtpServer)
