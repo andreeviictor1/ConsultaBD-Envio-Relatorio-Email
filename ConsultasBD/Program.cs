@@ -8,16 +8,14 @@ namespace ConsultasBD
     {
         static void Main(string[] args)
         {
-            // Caminho do arquivo CSV gerado
+            // Caminho do arquivo CSV
             string pastaDestino = @"Caminho da pasta";
             string caminhoArquivo = Path.Combine(pastaDestino, "relatorio.csv");
 
-            // Verifica se a pasta existe e cria se não existir
             if (!Directory.Exists(pastaDestino))
             {
                 Directory.CreateDirectory(pastaDestino);
             }
-
             // Realiza a consulta ao banco de dados e gera o arquivo CSV
             ConsultarBancoDeDados(caminhoArquivo);
 
@@ -34,29 +32,17 @@ namespace ConsultasBD
 
         static void ConsultarBancoDeDados(string caminhoArquivo)
         {
-            // Dados da string de conexão
+            
             string connectionString = "Server=localhost\\SQLEXPRESS;Database=AdventureWorksLT2022;Trusted_Connection=True;";
 
             // Parâmetros da consulta
             string categoriaFiltro = "Categoria B";
-            
-           
-
-
-
 
             //Consulta SQL a ser executada com parâmetros
             string query = @"
                 SELECT id, nome, quantidade, valor, categoria 
                 FROM Produtos 
                 WHERE categoria = @Categoria ORDER BY ID ASC;";
-
-
-            //string query = @"
-            //    SELECT * FROM Produtos;";
-
-
-
 
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
